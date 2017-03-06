@@ -29,26 +29,48 @@ public class Exercise1 {
             System.out.print("输入第" + (i+1) + "个整数：");
             a[i] = Integer.parseInt(buf.readLine());
         }
+        System.out.println("数组b的内容如下：");
+        problem(a, b, n);
 
-        int bi = problem(a, b, n);
-        System.out.println("\n" + "最终的计算结果为：" + bi);
     }
 
-
-    public static int problem(int[] a, int[] b, int n){
+    public static void problem(int[] a, int[] b, int n){
         int i;
-        b[0] = 1;
-        for (i = 1; i < n; i++){//先求出前半段的乘积
-            b[i] = b[i-1] *a[i-1];
-            System.out.print("循环1---" + b[i] + " ");
+        for (i = n-1; i >= 0; i--){
+            if (i == n-1){
+                b[n-1] = a[n-1];
+            }
+            else {
+                b[i] = a[i] * b[i+1];
+//                System.out.print(b[i] + "---");
+            }
         }
-        b[0] = a[n-1];
-        for (i = n-2; i >= 1; i--){//求出后半段的乘积，从数组尾部向前循环
-            b[i] = b[0] * b[i];
-            b[0] = b[0] * a[i];
-            System.out.print("循环2---" + b[i] + " ");
+
+        for (i = 0; i < n; i++){
+            if (i == 0){
+                a[0] = a[0];
+            }
+            else {
+                a[i] = a[i] * a[i-1];
+            }
         }
-        return b[i];
+
+        for (i = 0; i < n; i++){
+            if (i == 0){
+                b[i] = b[1];
+                System.out.print(b[i] + " ");
+            }
+            else if (i == n-1){
+                b[i] = a[n-2];
+                System.out.print(b[i] + " ");
+            }
+            else {
+                b[i] = a[i-1] * b[i+1];
+                System.out.print(b[i] + " ");
+            }
+        }
+//        System.out.print(b[i] + " ");
+
     }
 
 
